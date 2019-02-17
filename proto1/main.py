@@ -9,10 +9,18 @@ GPIO.setmode(GPIO.BOARD)
 motor_channel_A = [29, 31, 33, 35]
 motor_channel_B = [32, 36, 38, 40]
 
-# Setup motor arrays
+# Set GPIO button pins
+btn_A = 8
+btn_B = 10
+
+# Setup motor arrays and I/O
 motors = [motor_channel_A, motor_channel_B]
 GPIO.setup(motors[0], GPIO.OUT)
 GPIO.setup(motors[1], GPIO.OUT)
+
+# Setup button I/O
+btns = [btn_A, btn_B]
+GPIO.setup(btns, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
 # Clockwise solenoid energization sequence
 seq_cw = [
@@ -62,11 +70,22 @@ def move_B(duration, dir=True, dt=0.002):
 	GPIO.output(motors[1], 0)
 
 try:
+	move_A(1, True)
+	move_B(1, True)
+
+	# Wait for buttonpress
 	while True:
-		move_A(1, True)
-		move_A(1, False)
-		move_B(1, True)
-		move_B(1, False)
+		input_state = GPIO.input(btn_A)
+		n = 0
+		if input_state == True:
+			print('Button Pressed')
+			n += 1
+			sleep(0.2)
+		if n >= 10:
+			break
+
+	move_A(1, False)
+	move_B(1, False)
 except KeyboardInterrupt:
 	print("Keyboard interrupt.")
 finally:
