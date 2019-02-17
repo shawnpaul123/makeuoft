@@ -42,7 +42,7 @@ if __name__ == '__main__':
 	try:
 		while True:
 			dist = distance()
-			print("Distance = %.1f m" % dist)
+			print("Distance = %.3f m" % dist)
 			time.sleep(1)
 	except KeyboardInterrupt:
 		print("Measurement stopped.")
