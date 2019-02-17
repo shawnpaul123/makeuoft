@@ -1,6 +1,3 @@
-
- 
-*/
 let {PythonShell} = require('python-shell')
 
 /*
@@ -25,7 +22,7 @@ sensor_2.on('write', function(param){
 	if (param[0] == '1'){
 	  led.writeSync(1);
 	  //calling python magic
-	  PythonShell.run('my_script.py', null, function (err) {//change script name!
+	  PythonShell.run('main2.py', null, function (err) {//change script name!
   		if (err) throw err;
   		console.log('finished');
 });
