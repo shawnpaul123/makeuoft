@@ -1,12 +1,10 @@
-let {PythonShell} = require('python-shell')
-
-
 /*
-PythonShell.run('my_script.py', null, function (err) {
-  if (err) throw err;
-  console.log('finished');
-});
+Changes include 
+-calling new python file
+-new email format
 */
+
+let {PythonShell} = require('python-shell')
 
 var Blynk = require('blynk-library');
 var Gpio = require('onoff').Gpio;
@@ -17,17 +15,18 @@ var Blynk = new Blynk.Blynk(Auth);
 
 var sensor_1 = new Blynk.VirtualPin(0);//takes fuel amount
 var sensor_2 = new Blynk.VirtualPin(1);//is button
-console.log(Number(sensor_1));
 
 sensor_2.on('write', function(param){
 	if (param[0] == '1'){
 		//calling python magic
-	  	PythonShell.run('my_script.py', null, function (err) {//change script name!
+	  	PythonShell.run('main.py', null, function (err) {//change script name!
   			if (err) throw err;
 	  		console.log('finished');
 	  		Blynk.notify("Fuellling Complete!");
-	 		Blynk.email("shawn20michaels@gmail.com", "F*** JS", "Lolz");
+	 		Blynk.email("shawn20michaels@gmail.com", "Fuelling Complete", "Your cost is $35.95, thank you for not buying a Tesla :) ");
 		}
 		)
 	}
 });
+
+
