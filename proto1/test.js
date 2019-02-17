@@ -11,18 +11,15 @@ var Blynk = new Blynk.Blynk(Auth);
 var sensor_1 = new Blynk.VirtualPin(0);//takes fuel amount
 var sensor_2 = new Blynk.VirtualPin(1);//is button
 
-
 sensor_2.on('write', function(param){
-
-	if (sensor_1 > 0 ){
+	if (param[0] == '1'){
 	  led.writeSync(1);
 	  console.log('Hi');
-	} else{
+	} else {
 	  led.writeSync(0);
 	}
-
-	console.log('V0', param[0]):
-
 });
+
+
 
 
