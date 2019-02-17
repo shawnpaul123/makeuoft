@@ -1,4 +1,14 @@
-//Test file in js
+
+ 
+*/
+let {PythonShell} = require('python-shell')
+
+/*
+PythonShell.run('my_script.py', null, function (err) {
+  if (err) throw err;
+  console.log('finished');
+});
+*/
 
 var Blynk = require('blynk-library');
 var Gpio = require('onoff').Gpio;
@@ -14,11 +24,18 @@ var sensor_2 = new Blynk.VirtualPin(1);//is button
 sensor_2.on('write', function(param){
 	if (param[0] == '1'){
 	  led.writeSync(1);
-	  console.log('Hi');
+	  //calling python magic
+	  PythonShell.run('my_script.py', null, function (err) {//change script name!
+  		if (err) throw err;
+  		console.log('finished');
+});
 	} else {
 	  led.writeSync(0);
+	  console.log('Hello')
 	}
 });
+
+
 
 
 
