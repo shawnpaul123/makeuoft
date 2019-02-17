@@ -68,6 +68,25 @@ def move_B(duration, dir=True, dt=0.002):
 				sleep(dt)
 	# Motors off
 	GPIO.output(motors[1], 0)
+	
+#Shawn's stuff	
+def click_button(button_type):
+	# waiting for button press
+	while True:
+		try:
+		input_state = GPIO.input(btn_B)
+			if input_state = True:
+				print('Buttton Pressed to Stop Motors')
+				# Stop all motors
+				GPIO.output(motors[0], 0)
+				GPIO.output(motors[1], 0)
+				print("Motors off.")
+				break
+
+	except KeyboardInterrupt:
+		print("Keyboard interrupt.")
+		
+		
 
 try:
 	move_A(1, True)
@@ -96,3 +115,6 @@ finally:
 
 	# Reset all GPIO pins
 	GPIO.cleanup()
+	
+	
+	
